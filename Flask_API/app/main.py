@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Web3 setup
-ganache_url = "http://13.61.173.73:8545"
+ganache_url = "http://13.53.127.102:8545"
 time.sleep(5)  # Wait for Ganache to initialize
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
@@ -72,7 +72,7 @@ def upload_file():
     try:
         patient_id = int(request.form['patient_id'])
         file = request.files['file']
-        res = requests.post('http://13.61.173.73:5001/api/v0/add', files={'file': file})
+        res = requests.post('http://13.53.127.102:5001/api/v0/add', files={'file': file})
         cid = res.json()['Hash']
         tx = contract.functions.uploadRecord(cid).transact({'from': patients[patient_id]})
         web3.eth.wait_for_transaction_receipt(tx)
